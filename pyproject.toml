@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools"]
+
+[project]
+authors = [{name = "Patrick Elmer", email = "patrick@elmer.ws"}]
+classifiers = ["License :: OSI Approved :: MIT License"]
+description = "README.md"
+dynamic = ["version", "readme"]
+license = {file = "LICENSE"}
+name = "dotdict3"
+
+[tool.setuptools.dynamic]
+readme = {file = ["README.md"]}
+version = {attr = "dotdict3.__version__"}
+
+[project.urls]
+Home = "https://github.com/dotdict/dotdict3"
