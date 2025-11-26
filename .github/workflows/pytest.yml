@@ -1,0 +1,19 @@
+name: Pytest
+
+on:
+  pull_request:
+    branches:
+    - main
+
+jobs:
+  test:
+    name: Run tests with pytest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v4
+        with:
+          python-version: "3.13"
+      - run: python3 -m pip install --upgrade pip
+      - run: pip install pytest
+      - run: python3 -m pytest
