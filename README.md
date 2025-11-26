@@ -8,8 +8,6 @@ A lightweight Python package for accessing dictionary keys and list elements usi
 pip install dotdict3
 ```
 
-## Quick start
-
 ```
 >>> from dotdict3 import DotDict
 >>> d = DotDict({"a": "b"})
