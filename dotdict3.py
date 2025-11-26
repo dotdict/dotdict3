@@ -3,7 +3,7 @@ class DotDict(dict):
     __setattr__ = dict.__setitem__
     __delattr__ = dict.__delitem__
 
-    def __init__(self, d={}):
+    def __init__(self, d):
         for k, v in d.items():
             self[k] = v
 
