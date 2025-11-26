@@ -17,10 +17,13 @@ class DotDict(dict):
 
 class DotList(list):
     def __init__(self, l):
-        for x in l:
-            if isinstance(x, dict):
-                self.append(DotDict(x))
-            elif isinstance(x, (list, tuple)):
-                self.append(DotList(x))
-            else:
-                self.append(x)
+        for i in l:
+            self.append(i)
+
+    def append(self, i):
+        if isinstance(i, dict) and not isinstance(i, DotDict):
+            super().append(DotDict(i))
+        elif isinstance(i, (tuple, list, set, range)) and not isinstance(i, DotList):
+            super().append(DotList(i))
+        else:
+            super().append(i)
