@@ -1,10 +1,10 @@
 class DotDict(dict):
-    def __init__(self, d):
-        for k, v in d.items():
-            self[k] = v
+    def __init__(self, object):
+        for key, value in object.items():
+            self[key] = value
 
-    def __setitem__(self, k, v):
-        return super().__setitem__(k, _convert(v))
+    def __setitem__(self, key, value):
+        return super().__setitem__(key, _convert(value))
 
     __delattr__ = dict.__delitem__
     __getattr__ = dict.__getitem__
@@ -12,9 +12,9 @@ class DotDict(dict):
 
 
 class DotList(list):
-    def __init__(self, l):
-        for i in l:
-            self.append(i)
+    def __init__(self, object):
+        for item in object:
+            self.append(item)
 
     def append(self, object):
         return super().append(_convert(object))
