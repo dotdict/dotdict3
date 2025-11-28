@@ -88,6 +88,10 @@ class TestDotDict:
         assert d.bool is True
         assert d.none is None
 
+    def test_dict_assignment(self):
+        d = DotDict({})
+        d.a = {'b': 2}
+        assert d.a.b == 2
 
 class TestDotList:
     def test_basic_initialization(self):
