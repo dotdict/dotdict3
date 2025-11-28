@@ -1,7 +1,4 @@
 class DotDict(dict):
-    __getattr__ = dict.__getitem__
-    __delattr__ = dict.__delitem__
-
     def __init__(self, d):
         for k, v in d.items():
             self[k] = v
@@ -13,8 +10,9 @@ class DotDict(dict):
             return super().__setitem__(k, DotList(v))
         return super().__setitem__(k, v)
 
-    def __setattr__(self, k, v):
-        self.__setitem__(k, v)
+    __delattr__ = dict.__delitem__
+    __getattr__ = dict.__getitem__
+    __setattr__ = __setitem__
 
 
 class DotList(list):
