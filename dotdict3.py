@@ -4,11 +4,7 @@ class DotDict(dict):
             self[k] = v
 
     def __setitem__(self, k, v):
-        if isinstance(v, dict) and not isinstance(v, DotDict):
-            return super().__setitem__(k, DotDict(v))
-        elif isinstance(v, (tuple, list, set, range)):
-            return super().__setitem__(k, DotList(v))
-        return super().__setitem__(k, v)
+        return super().__setitem__(k, _convert(v))
 
     __delattr__ = dict.__delitem__
     __getattr__ = dict.__getitem__
@@ -20,15 +16,16 @@ class DotList(list):
         for i in l:
             self.append(i)
 
-    def append(self, i):
-        if isinstance(i, dict) and not isinstance(i, DotDict):
-            super().append(DotDict(i))
-        elif isinstance(i, (tuple, list, set, range)) and not isinstance(i, DotList):
-            super().append(DotList(i))
-        else:
-            super().append(i)
+    def append(self, object):
+        return super().append(_convert(object))
 
     def insert(self, index, object):
-        if isinstance(object, dict) and not isinstance(object, DotDict):
-            return super().insert(index, DotDict(object))
-        return super().insert(index, object)
+        return super().insert(index, _convert(object))
+
+
+def _convert(object):
+    if isinstance(object, dict) and not isinstance(object, DotDict):
+        return DotDict(object)
+    if isinstance(object, (tuple, list, set, range)) and not isinstance(object, DotList):
+        return DotList(object)
+    return object
