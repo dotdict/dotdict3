@@ -90,8 +90,14 @@ class TestDotDict:
 
     def test_dict_assignment(self):
         d = DotDict({})
-        d.a = {'b': 2}
+        d.a = {"b": 2}
         assert d.a.b == 2
+
+    def test_dict_assignment_with_list(self):
+        d = DotDict({})
+        d.a = [{"b": 2}]
+        assert d.a[0].b == 2
+
 
 class TestDotList:
     def test_basic_initialization(self):
