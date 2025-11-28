@@ -27,3 +27,8 @@ class DotList(list):
             super().append(DotList(i))
         else:
             super().append(i)
+
+    def insert(self, index, object):
+        if isinstance(object, dict) and not isinstance(object, DotDict):
+            return super().insert(index, DotDict(object))
+        return super().insert(index, object)

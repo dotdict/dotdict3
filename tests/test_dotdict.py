@@ -181,6 +181,10 @@ class TestDotList:
         assert l[4] is None
         assert l[5] is True
 
+    def test_list_insert(self):
+        l = DotList([{'a': 1}])
+        l.insert(0, {'b': 2})
+        assert l[0].b == 2
 
 class TestIntegration:
     def test_complex_nested_structure(self):
