@@ -37,21 +37,6 @@ class TestDotDict:
         assert isinstance(d.data, DotList)
         assert list(d.data) == [1, 2, 3]
 
-    def test_tuple_conversion(self):
-        d = DotDict({"coords": (10, 20, 30)})
-        assert isinstance(d.coords, DotList)
-        assert list(d.coords) == [10, 20, 30]
-
-    def test_set_conversion(self):
-        d = DotDict({"numbers": {1, 2, 3}})
-        assert isinstance(d.numbers, DotList)
-        assert set(d.numbers) == {1, 2, 3}
-
-    def test_range_conversion(self):
-        d = DotDict({"sequence": range(5)})
-        assert isinstance(d.sequence, DotList)
-        assert list(d.sequence) == [0, 1, 2, 3, 4]
-
     def test_mixed_nested_structures(self):
         d = DotDict(
             {"data": [{"name": "item1", "value": 10}, {"name": "item2", "value": 20}]}
@@ -117,22 +102,6 @@ class TestDotList:
         assert isinstance(l[1], DotList)
         assert list(l[0]) == [1, 2]
         assert list(l[1]) == [3, 4]
-
-    def test_tuple_conversion_in_list(self):
-        l = DotList([(1, 2), (3, 4)])
-        assert isinstance(l[0], DotList)
-        assert list(l[0]) == [1, 2]
-
-    def test_set_conversion_in_list(self):
-        l = DotList([{1, 2}, {3, 4}])
-        assert isinstance(l[0], DotList)
-        assert set(l[0]) == {1, 2}
-
-    def test_range_conversion_in_list(self):
-        l = DotList([range(3), range(3, 6)])
-        assert isinstance(l[0], DotList)
-        assert list(l[0]) == [0, 1, 2]
-        assert list(l[1]) == [3, 4, 5]
 
     def test_deeply_nested_structures(self):
         l = DotList([{"name": "item", "values": [1, 2, 3], "nested": {"key": "value"}}])
