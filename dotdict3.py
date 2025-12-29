@@ -1,6 +1,6 @@
 class DotDict(dict):
-    def __init__(self, obj):
-        for key, value in obj.items():
+    def __init__(self, data):
+        for key, value in data.items():
             self[key] = value
 
     def __setitem__(self, key, value):
@@ -16,16 +16,16 @@ class DotList(list):
         for item in items:
             self.append(item)
 
-    def append(self, object):
-        return super().append(_convert(object))
+    def append(self, items):
+        return super().append(_convert(items))
 
-    def insert(self, index, object):
-        return super().insert(index, _convert(object))
+    def insert(self, index, items):
+        return super().insert(index, _convert(items))
 
 
-def _convert(object):
-    if isinstance(object, dict) and not isinstance(object, DotDict):
-        return DotDict(object)
-    if isinstance(object, list) and not isinstance(object, DotList):
-        return DotList(object)
-    return object
+def _convert(obj):
+    if isinstance(obj, dict) and not isinstance(obj, DotDict):
+        return DotDict(obj)
+    if isinstance(obj, list) and not isinstance(obj, DotList):
+        return DotList(obj)
+    return obj
