@@ -26,6 +26,6 @@ class DotList(list):
 def _convert(object):
     if isinstance(object, dict) and not isinstance(object, DotDict):
         return DotDict(object)
-    if isinstance(object, (tuple, list, set, range)) and not isinstance(object, DotList):
+    if isinstance(object, list) and not isinstance(object, DotList):
         return DotList(object)
     return object
