@@ -14,7 +14,7 @@ class TestDotDict:
         assert d.age == 30
 
     def test_dot_notation_assignment(self):
-        d = DotDict({})
+        d = DotDict()
         d.name = "Alice"
         assert d["name"] == "Alice"
         assert d.name == "Alice"
@@ -74,12 +74,12 @@ class TestDotDict:
         assert d.none is None
 
     def test_dict_assignment(self):
-        d = DotDict({})
+        d = DotDict()
         d.a = {"b": 2}
         assert d.a.b == 2
 
     def test_dict_assignment_with_list(self):
-        d = DotDict({})
+        d = DotDict()
         d.a = [{"b": 2}]
         assert d.a[0].b == 2
 
@@ -111,19 +111,19 @@ class TestDotList:
         assert l[0]["nested"]["key"] == "value"
 
     def test_append_dict(self):
-        l = DotList([])
+        l = DotList()
         l.append({"a": 1})
         assert isinstance(l[0], DotDict)
         assert l[0].a == 1
 
     def test_append_list(self):
-        l = DotList([])
+        l = DotList()
         l.append([1, 2, 3])
         assert isinstance(l[0], DotList)
         assert list(l[0]) == [1, 2, 3]
 
     def test_append_primitive(self):
-        l = DotList([])
+        l = DotList()
         l.append(42)
         l.append("hello")
         l.append(None)
@@ -197,20 +197,12 @@ class TestIntegration:
 
 class TestEdgeCases:
     def test_empty_dict(self):
-        d = DotDict({})
+        d = DotDict()
         assert len(d) == 0
 
-    def test_empty_dict_error(self):
-        with pytest.raises(TypeError):
-            DotDict()
-
     def test_empty_list(self):
-        l = DotList([])
+        l = DotList()
         assert len(l) == 0
-
-    def test_empty_list_error(self):
-        with pytest.raises(TypeError):
-            DotList()
 
     def test_attribute_error_on_missing_key(self):
         d = DotDict({"a": 1})
@@ -230,7 +222,7 @@ class TestEdgeCases:
         l.extend([4, 5])
         assert len(l) == 5
         assert l.pop() == 5
-
+        
     @pytest.mark.parametrize("arg", [int, list, set, str, tuple])
     def test_invalid_input(self, arg):
         with pytest.raises(AttributeError):

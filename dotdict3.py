@@ -1,18 +1,22 @@
 class DotDict(dict):
-    def __init__(self, data):
+    def __init__(self, data=None):
+        data = data if not data is None else {}
         for key, value in data.items():
-            self[key] = value
+            self[key] = value  # Triggers custom __setitem__ for recursion
 
     def __setitem__(self, key, value):
+        # Wraps nested dicts/lists in Dot types before storing
         return super().__setitem__(key, _convert(value))
 
+    # Redirect attribute operations to dictionary methods
     __delattr__ = dict.__delitem__
     __getattr__ = dict.__getitem__
     __setattr__ = __setitem__
 
 
 class DotList(list):
-    def __init__(self, items):
+    def __init__(self, items=None):
+        items = items if not items is None else []
         for item in items:
             self.append(item)
 
@@ -24,6 +28,7 @@ class DotList(list):
 
 
 def _convert(obj):
+    """Recursively converts dicts/lists to DotDict/DotList if not already converted."""
     if isinstance(obj, dict) and not isinstance(obj, DotDict):
         return DotDict(obj)
     if isinstance(obj, list) and not isinstance(obj, DotList):
