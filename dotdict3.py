@@ -1,5 +1,6 @@
 class DotDict(dict):
-    def __init__(self, data):
+    def __init__(self, data=None):
+        data = data if not data is None else {}
         for key, value in data.items():
             self[key] = value
 
@@ -12,7 +13,8 @@ class DotDict(dict):
 
 
 class DotList(list):
-    def __init__(self, items):
+    def __init__(self, items=None):
+        items = items if not items is None else []
         for item in items:
             self.append(item)
 
